@@ -10,9 +10,9 @@ import Foundation
 struct Categories: Codable {
     let status, copyright: String?
     let numResults: Int?
-    let results: [Result]?
+    let results: [Hit]?
     
-    static func getForecastFromData(data: Data) throws -> Categories? {
+    static func getCategoriesFromData(data: Data) throws -> Categories? {
         do {
             let info = try JSONDecoder().decode(Categories.self, from: data)
             return info
@@ -32,7 +32,7 @@ struct Categories: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct Hit: Codable {
     let listName, displayName, listNameEncoded, oldestPublishedDate: String?
     let newestPublishedDate: String?
     let updated: Updated?
