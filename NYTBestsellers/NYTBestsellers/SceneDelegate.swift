@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navVC.tabBarItem = bestTab
         favVC.tabBarItem = favTab
         settingsVC.tabBarItem = settingsTab
-        tabController.viewControllers = [bestSellerVC,favVC,settingsVC]
+        tabController.viewControllers = [navVC,favVC,settingsVC]
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = tabController
