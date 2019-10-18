@@ -28,6 +28,7 @@
 		3A0777F7235A3CC00052D8C8 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777F6235A3CC00052D8C8 /* ImageHelper.swift */; };
 		3A0777F9235A3CC90052D8C8 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777F8235A3CC90052D8C8 /* AppError.swift */; };
 		3A0777FB235A3D9F0052D8C8 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777FA235A3D9F0052D8C8 /* Secrets.swift */; };
+		64408C2A235A488E009B9563 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64408C29235A488E009B9563 /* Categories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		3A0777F6235A3CC00052D8C8 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		3A0777F8235A3CC90052D8C8 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		3A0777FA235A3D9F0052D8C8 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		64408C29235A488E009B9563 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			children = (
 				3A0777E6235A3BD10052D8C8 /* Bestseller.swift */,
 				3A0777EA235A3C1B0052D8C8 /* Google.swift */,
+				64408C29235A488E009B9563 /* Categories.swift */,
 				3A0777F0235A3C710052D8C8 /* Favorites.swift */,
 				3A0777FA235A3D9F0052D8C8 /* Secrets.swift */,
 			);
@@ -334,6 +337,7 @@
 				3A0777FB235A3D9F0052D8C8 /* Secrets.swift in Sources */,
 				3A0777ED235A3C290052D8C8 /* GoogleAPIClient.swift in Sources */,
 				3A0777F9235A3CC90052D8C8 /* AppError.swift in Sources */,
+				64408C2A235A488E009B9563 /* Categories.swift in Sources */,
 				3A0777E9235A3BE30052D8C8 /* BestSellerAPIClient.swift in Sources */,
 				3A0777E7235A3BD10052D8C8 /* Bestseller.swift in Sources */,
 				3A0777E1235A3B6E0052D8C8 /* FavoritesVC.swift in Sources */,
@@ -450,7 +454,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -504,7 +508,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
