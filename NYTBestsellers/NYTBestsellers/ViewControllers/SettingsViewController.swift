@@ -9,22 +9,48 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    //MARK: - UIObjects
+    var pickerView = Picker()
+    var sample = ["testOne","testTwo","testThree","testFour"]
 
+    //MARK: - SetupFunctions
+    private func setSettingsUI() {
+        view.backgroundColor = .white
+        setPickerDelegates()
+        setPickerConstraints()
+    }
+    private func setPickerDelegates() {
+        pickerView.delegate = self
+        pickerView.dataSource = self
+    }
+    private func setPickerConstraints() {
+        view.addSubview(pickerView)
+        NSLayoutConstraint.activate([
+            pickerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            pickerView.widthAnchor.constraint(equalToConstant: view.frame.width),
+            pickerView.heightAnchor.constraint(equalToConstant: pickerView.frame.height)])
+        view.layoutIfNeeded()
+    }
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setSettingsUI()
     }
     
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+//MARK: Extension
+extension SettingsViewController: UIPickerViewDataSource,UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
-    */
-
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return sample.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return sample[row]
+    }
+    
 }
