@@ -20,7 +20,7 @@
 		3A0777E3235A3B800052D8C8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777E2235A3B800052D8C8 /* SettingsViewController.swift */; };
 		3A0777E5235A3BB10052D8C8 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777E4235A3BB10052D8C8 /* Picker.swift */; };
 		3A0777E7235A3BD10052D8C8 /* Bestseller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777E6235A3BD10052D8C8 /* Bestseller.swift */; };
-		3A0777E9235A3BE30052D8C8 /* BestSellerAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777E8235A3BE30052D8C8 /* BestSellerAPIClient.swift */; };
+		3A0777E9235A3BE30052D8C8 /* NYTAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777E8235A3BE30052D8C8 /* NYTAPIClient.swift */; };
 		3A0777EB235A3C1B0052D8C8 /* Google.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777EA235A3C1B0052D8C8 /* Google.swift */; };
 		3A0777ED235A3C290052D8C8 /* GoogleAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777EC235A3C290052D8C8 /* GoogleAPIClient.swift */; };
 		3A0777F1235A3C710052D8C8 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777F0235A3C710052D8C8 /* Favorites.swift */; };
@@ -68,7 +68,7 @@
 		3A0777E2235A3B800052D8C8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3A0777E4235A3BB10052D8C8 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		3A0777E6235A3BD10052D8C8 /* Bestseller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bestseller.swift; sourceTree = "<group>"; };
-		3A0777E8235A3BE30052D8C8 /* BestSellerAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestSellerAPIClient.swift; sourceTree = "<group>"; };
+		3A0777E8235A3BE30052D8C8 /* NYTAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTAPIClient.swift; sourceTree = "<group>"; };
 		3A0777EA235A3C1B0052D8C8 /* Google.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Google.swift; sourceTree = "<group>"; };
 		3A0777EC235A3C290052D8C8 /* GoogleAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAPIClient.swift; sourceTree = "<group>"; };
 		3A0777F0235A3C710052D8C8 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				3A0777EC235A3C290052D8C8 /* GoogleAPIClient.swift */,
-				3A0777E8235A3BE30052D8C8 /* BestSellerAPIClient.swift */,
+				3A0777E8235A3BE30052D8C8 /* NYTAPIClient.swift */,
 			);
 			path = APIClients;
 			sourceTree = "<group>";
@@ -338,7 +338,7 @@
 				3A0777ED235A3C290052D8C8 /* GoogleAPIClient.swift in Sources */,
 				3A0777F9235A3CC90052D8C8 /* AppError.swift in Sources */,
 				64408C2A235A488E009B9563 /* Categories.swift in Sources */,
-				3A0777E9235A3BE30052D8C8 /* BestSellerAPIClient.swift in Sources */,
+				3A0777E9235A3BE30052D8C8 /* NYTAPIClient.swift in Sources */,
 				3A0777E7235A3BD10052D8C8 /* Bestseller.swift in Sources */,
 				3A0777E1235A3B6E0052D8C8 /* FavoritesVC.swift in Sources */,
 				3A0777AF235A3A150052D8C8 /* ViewController.swift in Sources */,
@@ -525,6 +525,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BHJSDBBPS7;
 				INFOPLIST_FILE = NYTBestsellers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -543,6 +544,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BHJSDBBPS7;
 				INFOPLIST_FILE = NYTBestsellers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
