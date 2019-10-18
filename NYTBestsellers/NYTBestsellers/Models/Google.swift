@@ -14,7 +14,7 @@ struct GoogleInfo: Codable {
     let totalItems: Int?
     let items: [Item]?
     
-    static func getForecastFromData(data: Data) throws -> GoogleInfo? {
+    static func getInfoFromData(data: Data) throws -> GoogleInfo? {
         do {
             let info = try JSONDecoder().decode(GoogleInfo.self, from: data)
             return info

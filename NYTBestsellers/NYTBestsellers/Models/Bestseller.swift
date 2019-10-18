@@ -17,7 +17,7 @@ struct BestSellers: Codable {
     let lastModified: Date?
     let results: [BS]?
     
-    static func getForecastFromData(data: Data) throws -> BestSellers? {
+    static func getBestSellersFromData(data: Data) throws -> BestSellers? {
     do {
         let info = try JSONDecoder().decode(BestSellers.self, from: data)
         return info
