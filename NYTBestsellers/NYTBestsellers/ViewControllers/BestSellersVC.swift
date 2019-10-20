@@ -82,7 +82,7 @@ class BestSellersVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(BSCollectionView)
-        view.backgroundColor = .gray
+        view.backgroundColor = .darkGray
         configureCollectionView()
         loadBestSellers()
     }
