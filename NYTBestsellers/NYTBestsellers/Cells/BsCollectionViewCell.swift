@@ -10,11 +10,11 @@ import UIKit
 
 class BsCollectionViewCell: UICollectionViewCell {
     
-     var googleBookInfo: GoogleInfo?
+    var googleBookInfo: GoogleInfo? 
         
         lazy var BestsellerImageView: UIImageView = {
             let imageView = UIImageView()
-            imageView.backgroundColor = .red
+            imageView.backgroundColor = .blue
             return imageView
         }()
         
@@ -30,6 +30,10 @@ class BsCollectionViewCell: UICollectionViewCell {
             let textDescription = UITextView()
             textDescription.text = "Description"
             textDescription.textColor = .black
+            textDescription.isScrollEnabled = true
+            textDescription.isSelectable = false
+            textDescription.isEditable = false
+            
             return textDescription
         }()
         
@@ -54,7 +58,7 @@ class BsCollectionViewCell: UICollectionViewCell {
             BestsellerImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
             BestsellerImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 100).isActive = true
             BestsellerImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -100).isActive = true
-            BestsellerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -100).isActive = true
+            BestsellerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -150).isActive = true
         }
         
         func setLabelConstraint() {

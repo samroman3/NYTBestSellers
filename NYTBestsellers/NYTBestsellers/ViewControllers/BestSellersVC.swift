@@ -23,11 +23,12 @@ class BestSellersVC: UIViewController {
               }
           }
     
-    var category = "Hardcover Nonfiction" {
+    var category = "hardcover-nonfiction" {
               didSet {
                   loadBestSellers()
               }
           }
+    
        
     
     
@@ -49,7 +50,7 @@ class BestSellersVC: UIViewController {
     private func configureCollectionView(){
         BSCollectionView.translatesAutoresizingMaskIntoConstraints = false
         BSCollectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 0).isActive = true
-        BSCollectionView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        BSCollectionView.heightAnchor.constraint(equalToConstant: 500).isActive = true
         BSCollectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true
         BSCollectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
         
@@ -58,12 +59,19 @@ class BestSellersVC: UIViewController {
     
     //MARK: Private Data Methods
     private func loadBestSellers(){
-        
+        NYTAPIClient.shared.getBookInfo(category: self.category) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let bs):
+                    self.books = bs.results!
+                    print("succesfully loaded bestsellers")
+                }
+            }
+        }
     }
-    
-    private func loadBookInfo(isbn: Int){
-        
-    }
+
     
    
        
@@ -76,6 +84,7 @@ class BestSellersVC: UIViewController {
         view.addSubview(BSCollectionView)
         view.backgroundColor = .gray
         configureCollectionView()
+        loadBestSellers()
     }
 
 }
@@ -94,8 +103,30 @@ extension BestSellersVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          guard let cell = BSCollectionView.dequeueReusableCell(withReuseIdentifier: "bsCell", for: indexPath) as? BsCollectionViewCell else { return UICollectionViewCell() }
                let book = books[indexPath.row]
-        cell.NumberOfWeeksLabel.text = "\(String(describing: book.weeksOnList)) on best sellers list"
+        cell.NumberOfWeeksLabel.text = "\(book.weeksOnList ?? 0) week(s) on best sellers list"
         cell.TextViewDescription.text = book.bookDetails?.first?.bookDetailDescription
+        GoogleAPIClient.shared.getBookInfo(isbn: book.isbns?.first?.isbn13) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let info):
+                    cell.googleBookInfo = info
+                    let small = info.items![0].volumeInfo?.imageLinks?.smallThumbnail
+                    ImageHelper.shared.fetchImage(urlString: (small ?? "9780316535625")) { (result) in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .failure(let error):
+                                print(error)
+                            case .success(let image):
+                                print("Succesfully loading image for cell")
+                                cell.BestsellerImageView.image = image
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return cell
     }
     
