@@ -9,22 +9,107 @@
 import UIKit
 
 class BestSellersVC: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+    
+    //MARK: Private Data Variables
+    var itemSize = CGSize(width: 250, height: 350)
+    let cellSpacing = UIScreen.main.bounds.size.width * 0.09
+    
+    private var books = [BS]() {
+              didSet {
+                  DispatchQueue.main.async {
+                      self.BSCollectionView.reloadData()
+                  }
+              }
+          }
+    
+    var category = "Hardcover Nonfiction" {
+              didSet {
+                  loadBestSellers()
+              }
+          }
+       
+    
+    
+    //MARK: UI Variables
+    lazy var BSCollectionView: UICollectionView = {
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+    cv.backgroundColor = .white
+    cv.delegate = self
+    cv.dataSource = self 
+    cv.register(BsCollectionViewCell.self, forCellWithReuseIdentifier: "bsCell")
+    return cv
+    }()
+    
+    
+    
+    //MARK: Constraint Methods
+    private func configureCollectionView(){
+        BSCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        BSCollectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 0).isActive = true
+        BSCollectionView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        BSCollectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true
+        BSCollectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+        
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: Private Data Methods
+    private func loadBestSellers(){
+        
     }
-    */
+    
+    private func loadBookInfo(isbn: Int){
+        
+    }
+    
+   
+       
 
+    
+       
+    //MARK: Lifecycle Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(BSCollectionView)
+        view.backgroundColor = .gray
+        configureCollectionView()
+    }
+
+}
+
+
+
+
+    //MARK: CollectionView Extension
+extension BestSellersVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return books.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+         guard let cell = BSCollectionView.dequeueReusableCell(withReuseIdentifier: "bsCell", for: indexPath) as? BsCollectionViewCell else { return UICollectionViewCell() }
+               let book = books[indexPath.row]
+        cell.NumberOfWeeksLabel.text = "\(String(describing: book.weeksOnList)) on best sellers list"
+        cell.TextViewDescription.text = book.bookDetails?.first?.bookDetailDescription
+        return cell
+    }
+    
+    
+}
+
+extension BestSellersVC: UICollectionViewDelegateFlowLayout{
+    
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+         return CGSize(width: BSCollectionView.frame.width, height: BSCollectionView.frame.height)
+    }
+    
+    
+
+    
 }

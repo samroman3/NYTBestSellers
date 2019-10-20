@@ -27,8 +27,8 @@
 		3A0777F5235A3CB60052D8C8 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777F4235A3CB60052D8C8 /* NetworkHelper.swift */; };
 		3A0777F7235A3CC00052D8C8 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777F6235A3CC00052D8C8 /* ImageHelper.swift */; };
 		3A0777F9235A3CC90052D8C8 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777F8235A3CC90052D8C8 /* AppError.swift */; };
+		3A0777FD235A68A90052D8C8 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0777FC235A68A90052D8C8 /* Secrets.swift */; };
 		64408C2A235A488E009B9563 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64408C29235A488E009B9563 /* Categories.swift */; };
-		64408C2C235A53B2009B9563 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64408C2B235A53B2009B9563 /* Secrets.swift */; };
 		64408C2E235A6025009B9563 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64408C2D235A6025009B9563 /* DetailVC.swift */; };
 		64408C31235A60A6009B9563 /* BsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64408C30235A60A6009B9563 /* BsCollectionViewCell.swift */; };
 		64408C33235A60C1009B9563 /* FavoritesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64408C32235A60C1009B9563 /* FavoritesCollectionViewCell.swift */; };
@@ -78,8 +78,8 @@
 		3A0777F4235A3CB60052D8C8 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		3A0777F6235A3CC00052D8C8 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		3A0777F8235A3CC90052D8C8 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		3A0777FC235A68A90052D8C8 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Secrets.swift; path = ../../Secrets.swift; sourceTree = "<group>"; };
 		64408C29235A488E009B9563 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
-		64408C2B235A53B2009B9563 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Secrets.swift; path = ../../Secrets.swift; sourceTree = "<group>"; };
 		64408C2D235A6025009B9563 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		64408C30235A60A6009B9563 /* BsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsCollectionViewCell.swift; sourceTree = "<group>"; };
 		64408C32235A60C1009B9563 /* FavoritesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 				3A0777EA235A3C1B0052D8C8 /* Google.swift */,
 				64408C29235A488E009B9563 /* Categories.swift */,
 				3A0777F0235A3C710052D8C8 /* Favorites.swift */,
-				64408C2B235A53B2009B9563 /* Secrets.swift */,
+				3A0777FC235A68A90052D8C8 /* Secrets.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -351,12 +351,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A0777F5235A3CB60052D8C8 /* NetworkHelper.swift in Sources */,
+				3A0777FD235A68A90052D8C8 /* Secrets.swift in Sources */,
 				3A0777ED235A3C290052D8C8 /* GoogleAPIClient.swift in Sources */,
 				3A0777F9235A3CC90052D8C8 /* AppError.swift in Sources */,
 				64408C2A235A488E009B9563 /* Categories.swift in Sources */,
 				3A0777E9235A3BE30052D8C8 /* NYTAPIClient.swift in Sources */,
 				64408C2E235A6025009B9563 /* DetailVC.swift in Sources */,
-				64408C2C235A53B2009B9563 /* Secrets.swift in Sources */,
 				3A0777E7235A3BD10052D8C8 /* Bestseller.swift in Sources */,
 				3A0777E1235A3B6E0052D8C8 /* FavoritesVC.swift in Sources */,
 				3A0777AF235A3A150052D8C8 /* ViewController.swift in Sources */,
