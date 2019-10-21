@@ -57,7 +57,7 @@ extension Picker: UIPickerViewDataSource,UIPickerViewDelegate {
         return categories.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row].listName
+        return categories[row].displayName
     }
     
 }
