@@ -31,7 +31,7 @@ class BestSellersVC: UIViewController {
         }
     }
     
-    private var categories = [Hit]() {
+    private var categories = Picker.categories {
         didSet {
             print(categories)
             pickerView.reloadAllComponents()
@@ -88,10 +88,13 @@ class BestSellersVC: UIViewController {
       }
     
     private func setUpPicker() {
-             setPickerDelegates()
-             configurePickerConstraints()
-         }
-     
+        setPickerDelegates()
+        configurePickerConstraints()
+    }
+    func setupCategories() {
+        categories = Picker.categories
+    }
+    
     //MARK: Private Data Methods
     private func loadBestSellers(){
         NYTAPIClient.shared.getBookInfo(category: category) { (result) in
@@ -121,7 +124,12 @@ class BestSellersVC: UIViewController {
             }
         }
     }
-    
+    private func loadPickerDefaults() {
+        if let row = UserDefaultWrapper.manager.getCategoryRow(),let name = UserDefaultWrapper.manager.getCategoryName() {
+            pickerView.selectRow(row, inComponent: 0, animated: true)
+            category = name
+        }
+    }
    
        
 
@@ -138,12 +146,7 @@ class BestSellersVC: UIViewController {
 
     }
     override func viewWillAppear(_ animated: Bool) {
-        if let row = UserDefaultWrapper.manager.getCategoryRow(),let name = UserDefaultWrapper.manager.getCategoryName() {
-            pickerView.selectRow(row, inComponent: 0, animated: true)
-            category = name
-            
-        }
-        
+        loadPickerDefaults()
          loadBestSellers()
     }
 
@@ -192,6 +195,14 @@ extension BestSellersVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            let book = books[indexPath.row]
+            let detailVC = DetailVC()
+            detailVC.BS = book
+            navigationController?.pushViewController(detailVC, animated: true)
+        
+    }
+    
     
 }
     //MARK: CollectionView Delegate Flow Layout Extension
@@ -216,12 +227,12 @@ extension BestSellersVC: UIPickerViewDataSource, UIPickerViewDelegate {
         return categories.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row].listName
+        return categories[row].displayName
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
        //TODO: Create Array of all listnames in Category data
-        let name = categories[row].listName.replacingOccurrences(of: " ", with: "-").lowercased()
+        let name = categories[row].displayName.replacingOccurrences(of: " ", with: "-").lowercased()
         category = name
         
     }
