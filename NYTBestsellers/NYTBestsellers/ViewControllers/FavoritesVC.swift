@@ -10,7 +10,7 @@ import UIKit
 
 class FavoritesVC: UIViewController {
     
-    var favs = [BookDetail]() {
+    var favs = [Favorite]() {
         
         didSet {
             DispatchQueue.main.async {
@@ -38,8 +38,8 @@ class FavoritesVC: UIViewController {
     private func configureCollectionView(){
         FVCollectionView.translatesAutoresizingMaskIntoConstraints = false
         FVCollectionView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-        FVCollectionView.heightAnchor.constraint(equalToConstant: 500).isActive = true
-      FVCollectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true
+        FVCollectionView.heightAnchor.constraint(equalTo: self.view.heightAnchor, constant: 0).isActive = true
+      FVCollectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0).isActive = true
        FVCollectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         view.layoutIfNeeded()
     }
@@ -50,7 +50,7 @@ class FavoritesVC: UIViewController {
                 view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
                 addSubView()
                 configureCollectionView()
-               
+                loadFavs()
             }
     
     
@@ -59,6 +59,15 @@ class FavoritesVC: UIViewController {
             
              
           }
+    
+    private func loadFavs(){
+        do {
+            let getfavs = try FavPersistenceHelper.manager.getPhoto()
+            favs = getfavs
+        } catch {
+            return
+        }
+    }
         
     }
 
@@ -72,6 +81,9 @@ class FavoritesVC: UIViewController {
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
            guard let cell = FVCollectionView.dequeueReusableCell(withReuseIdentifier: "favCell", for: indexPath) as? FavoritesCollectionViewCell else { return UICollectionViewCell() }
            let favorite = favs[indexPath.row]
+            cell.textLabel.text = favorite.bookDetails?[0].author
+            cell.TextViewDescription.text = favorite.bookDetails?[0].bookDetailDescription
+            cell.BestsellerImageView.image = UIImage(data: favorite.image)
             return cell
         }
         
