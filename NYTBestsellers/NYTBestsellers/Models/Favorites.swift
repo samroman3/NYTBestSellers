@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+struct Favorite: Codable {
+     let bookDetails: [BookDetail]?
+     let isbns: [Isbn]?
+     let amazonProductURL: String?
+     let imageLink: ImageLinks?
+     let image: Data
+}
