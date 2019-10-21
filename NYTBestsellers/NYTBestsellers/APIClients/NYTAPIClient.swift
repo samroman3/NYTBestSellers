@@ -26,10 +26,11 @@ struct NYTAPIClient {
             case .success(let data):
                 
                 do {
-                    let bestsellers = try BestSellers.getBestSellersFromData(data: data)
-                    completionHandler(.success(bestsellers!))
+                   let bestsellers = try BestSellers.getBestSellersFromData(data: data)
+                    completionHandler(.success(bestsellers ?? backUpBestSellers))
                 }
                 catch {
+                    completionHandler(.success(backUpBestSellers))
                     completionHandler(.failure(.other(rawError: error)))
                 }
             }
