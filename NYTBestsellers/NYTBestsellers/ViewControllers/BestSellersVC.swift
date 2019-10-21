@@ -195,6 +195,14 @@ extension BestSellersVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            let book = books[indexPath.row]
+            let detailVC = DetailVC()
+            detailVC.BS = book
+            navigationController?.pushViewController(detailVC, animated: true)
+        
+    }
+    
     
 }
     //MARK: CollectionView Delegate Flow Layout Extension
