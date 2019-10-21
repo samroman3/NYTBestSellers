@@ -14,7 +14,6 @@ import Foundation
 struct BestSellers: Codable {
     let status, copyright: String?
     let numResults: Int?
-    let lastModified: Date?
     let results: [BS]?
     
     static func getBestSellersFromData(data: Data) throws -> BestSellers? {
@@ -31,14 +30,14 @@ struct BestSellers: Codable {
     enum CodingKeys: String, CodingKey {
         case status, copyright
         case numResults = "num_results"
-        case lastModified = "last_modified"
         case results
     }
 }
 
 // MARK: - Result
 struct BS: Codable {
-    let listName, displayName: Name?
+    let listName: String?
+    let displayName: String?
     let bestsellersDate, publishedDate: String?
     let rank, rankLastWeek, weeksOnList, asterisk: Int?
     let dagger: Int?
@@ -83,9 +82,7 @@ struct BookDetail: Codable {
     }
 }
 
-enum Name: String, Codable {
-    case hardcoverFiction = "Hardcover Fiction"
-}
+
 
 // MARK: - Isbn
 struct Isbn: Codable {
@@ -104,3 +101,6 @@ struct Review: Codable {
         case articleChapterLink = "article_chapter_link"
     }
 }
+
+
+let backUpBestSellers = BestSellers(status: "ok", copyright: "200", numResults: 1, results: [BS(listName: "", displayName: "", bestsellersDate: "", publishedDate: "", rank: 0, rankLastWeek: 0, weeksOnList: 0, asterisk: 0, dagger: 0, amazonProductURL: "", isbns: nil , bookDetails: [BookDetail(title: "", bookDetailDescription: "No Titles Available", contributor: "", author: "", contributorNote: "", price: nil, ageGroup: "", publisher: "", primaryIsbn13: nil, primaryIsbn10: nil )], reviews: [Review(bookReviewLink: "", firstChapterLink: "", sundayReviewLink: "", articleChapterLink: "")])])
