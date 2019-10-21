@@ -12,8 +12,6 @@ class BestSellersVC: UIViewController {
     
     
     //MARK: Private Data Variables
-    var itemSize = CGSize(width: 250, height: 350)
-    let cellSpacing = UIScreen.main.bounds.size.width * 0.09
     
     private var books = [BS]() {
               didSet {
@@ -22,6 +20,19 @@ class BestSellersVC: UIViewController {
                   }
               }
           }
+    
+   
+    
+    
+    
+    private var pickerView = Picker()
+    
+    private var categories = [Hit]() {
+        didSet {
+            print(categories)
+            pickerView.reloadAllComponents()
+        }
+    }
     
     var category = "hardcover-nonfiction" {
               didSet {
@@ -48,15 +59,34 @@ class BestSellersVC: UIViewController {
     
     //MARK: Constraint Methods
     private func configureCollectionView(){
+        view.addSubview(BSCollectionView)
         BSCollectionView.translatesAutoresizingMaskIntoConstraints = false
         BSCollectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 0).isActive = true
         BSCollectionView.heightAnchor.constraint(equalToConstant: 500).isActive = true
         BSCollectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true
         BSCollectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
         
-        
     }
+    private func configurePickerConstraints() {
+        view.addSubview(pickerView)
+        NSLayoutConstraint.activate([
+            pickerView.topAnchor.constraint(equalTo: BSCollectionView.bottomAnchor, constant: 10),
+            pickerView.widthAnchor.constraint(equalToConstant: view.frame.width),
+            pickerView.heightAnchor.constraint(equalToConstant: pickerView.frame.height)])
+        view.layoutIfNeeded()
+    }
+
     
+      private func setPickerDelegates() {
+          pickerView.delegate = self
+          pickerView.dataSource = self
+      }
+    
+    private func setUpPicker() {
+             setPickerDelegates()
+             configurePickerConstraints()
+         }
+     
     //MARK: Private Data Methods
     private func loadBestSellers(){
         NYTAPIClient.shared.getBookInfo(category: self.category) { (result) in
@@ -73,6 +103,20 @@ class BestSellersVC: UIViewController {
     }
 
     
+    private func loadCategories(){
+        NYTAPIClient.shared.getCategory { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print("unable to load category due to \(error)")
+                case .success(let data):
+                    self.categories = data.results!
+                    print("succesfully loaded categories")
+                }
+            }
+        }
+    }
+    
    
        
 
@@ -81,10 +125,12 @@ class BestSellersVC: UIViewController {
     //MARK: Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(BSCollectionView)
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .white
         configureCollectionView()
+        setUpPicker()
         loadBestSellers()
+        loadCategories()
+        
     }
 
 }
@@ -112,8 +158,10 @@ extension BestSellersVC: UICollectionViewDelegate, UICollectionViewDataSource {
                     print(error)
                 case .success(let info):
                     cell.googleBookInfo = info
-                    let small = info.items![0].volumeInfo?.imageLinks?.smallThumbnail
-                    ImageHelper.shared.fetchImage(urlString: (small ?? "9780316535625")) { (result) in
+                    guard let small = info.items?[0].volumeInfo?.imageLinks?.smallThumbnail else { cell.BestsellerImageView.image = UIImage(named: "default-book")
+                        return
+                    }
+                    ImageHelper.shared.fetchImage(urlString: (small)) { (result) in
                         DispatchQueue.main.async {
                             switch result {
                             case .failure(let error):
@@ -132,7 +180,7 @@ extension BestSellersVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
 }
-
+    //MARK: CollectionView Delegate Flow Layout Extension
 extension BestSellersVC: UICollectionViewDelegateFlowLayout{
     
 
@@ -140,7 +188,28 @@ extension BestSellersVC: UICollectionViewDelegateFlowLayout{
          return CGSize(width: BSCollectionView.frame.width, height: BSCollectionView.frame.height)
     }
     
-    
+}
 
+
+    //MARK: UIPickerView Extension
+extension BestSellersVC: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categories.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categories[row].listName
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+       //TODO: Create Array of all listnames in Category data
+        let name = categories[row].listName.replacingOccurrences(of: " ", with: "-").lowercased()
+        category = name
+        
+    }
     
 }

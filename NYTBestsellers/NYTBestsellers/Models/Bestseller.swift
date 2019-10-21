@@ -101,3 +101,6 @@ struct Review: Codable {
         case articleChapterLink = "article_chapter_link"
     }
 }
+
+
+let backUpBestSellers = BestSellers(status: "ok", copyright: "200", numResults: 1, results: [BS(listName: "", displayName: "", bestsellersDate: "", publishedDate: "", rank: 0, rankLastWeek: 0, weeksOnList: 0, asterisk: 0, dagger: 0, amazonProductURL: "", isbns: nil , bookDetails: [BookDetail(title: "", bookDetailDescription: "No Titles Available", contributor: "", author: "", contributorNote: "", price: nil, ageGroup: "", publisher: "", primaryIsbn13: nil, primaryIsbn10: nil )], reviews: [Review(bookReviewLink: "", firstChapterLink: "", sundayReviewLink: "", articleChapterLink: "")])])

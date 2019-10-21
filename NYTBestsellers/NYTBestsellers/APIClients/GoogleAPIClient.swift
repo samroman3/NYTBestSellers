@@ -13,7 +13,7 @@ struct GoogleAPIClient {
     static let shared = GoogleAPIClient()
     
     func getBookInfo(isbn: String? , completionHandler: @escaping (Result<GoogleInfo, AppError>) -> ()) {
-        let urlStr = "https://www.googleapis.com/books/v1/volumes?q=+isbn:\(isbn!)&key=\(Secrets.googlekey)"
+        let urlStr = "https://www.googleapis.com/books/v1/volumes?q=+isbn:\(isbn ?? "")&key=\(Secrets.googlekey)"
         
         guard let url = URL(string: urlStr) else {
             completionHandler(.failure(AppError.badURL))
