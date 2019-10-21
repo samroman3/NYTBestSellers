@@ -10,29 +10,38 @@ import UIKit
 
 class FavoritesVC: UIViewController {
     
-        lazy var collectionView: UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .vertical
-            
-            let FavoriteView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-            
-            FavoriteView.register(FavoritesCollectionViewCell.self, forCellWithReuseIdentifier: "favCell")
-//            FavoriteView.delegate = self
-//            FavoriteView.dataSource = self
-            FavoriteView.backgroundColor = .red
-            
-            return FavoriteView
-            
-        }()
-
-    private func configureCollectionView(){
-        collectionView.addSubview(collectionView)
-       collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 0).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: 500).isActive = true
-      collectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true
-       collectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+    var favs = [BookDetail]() {
         
+        didSet {
+            DispatchQueue.main.async {
+                self.FVCollectionView.reloadData()
+            }
+        }
+    }
+    
+    
+    
+    lazy var FVCollectionView: UICollectionView = {
+        let fvc = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: UICollectionViewFlowLayout())
+        if let layout = fvc.collectionViewLayout as? UICollectionViewFlowLayout {
+        layout.scrollDirection = .vertical
+        }
+    
+    fvc.backgroundColor = .black
+    fvc.delegate = self
+    fvc.dataSource = self
+    fvc.register(FavoritesCollectionViewCell.self, forCellWithReuseIdentifier: "favCell")
+    return fvc
+    }()
+    
+    
+    private func configureCollectionView(){
+        FVCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        FVCollectionView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        FVCollectionView.heightAnchor.constraint(equalToConstant: 500).isActive = true
+      FVCollectionView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true
+       FVCollectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        view.layoutIfNeeded()
     }
     
     
@@ -42,40 +51,36 @@ class FavoritesVC: UIViewController {
                 addSubView()
                 configureCollectionView()
                
-
             }
     
-
     
         func addSubView() {
-              self.view.addSubview(collectionView)
+              view.addSubview(FVCollectionView)
             
              
           }
         
     }
 
-    extension ViewController: UICollectionViewDelegate {
-        
-    }
 
-    extension ViewController: UICollectionViewDataSource {
+
+    extension FavoritesVC: UICollectionViewDataSource, UICollectionViewDelegate {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return 3
+            return favs.count
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
-            return UICollectionViewCell()
+           guard let cell = FVCollectionView.dequeueReusableCell(withReuseIdentifier: "favCell", for: indexPath) as? FavoritesCollectionViewCell else { return UICollectionViewCell() }
+           let favorite = favs[indexPath.row]
+            return cell
         }
         
         
     }
-
-    extension ViewController: UICollectionViewDelegateFlowLayout {
-
+extension FavoritesVC: UICollectionViewDelegateFlowLayout{
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 150)
+         return CGSize(width: FVCollectionView.frame.width, height: FVCollectionView.frame.height)
     }
-
+    
 }
