@@ -38,6 +38,11 @@ class SettingsViewController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
     }
+    private func loadPickerDefaults() {
+        if let row = UserDefaultWrapper.manager.getCategoryRow() {
+            pickerView.selectRow(row, inComponent: 0, animated: true)
+        }
+    }
     
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -45,8 +50,11 @@ class SettingsViewController: UIViewController {
         setSettingsUI()
         setPickerDelegates()
         setupCategories()
+        loadPickerDefaults()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        loadPickerDefaults()
+    }
 
 }
 
@@ -64,7 +72,7 @@ extension SettingsViewController: UIPickerViewDataSource,UIPickerViewDelegate {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         UserDefaultWrapper.manager.set(value: row)
-        let name = categories[row].listName.replacingOccurrences(of: " ", with: "-").lowercased()
+        let name = categories[row].displayName.replacingOccurrences(of: " ", with: "-").lowercased()
         UserDefaultWrapper.manager.set(name: name)
         
     }
