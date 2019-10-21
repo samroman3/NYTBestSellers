@@ -11,33 +11,38 @@ import UIKit
 class FavoritesCollectionViewCell: UICollectionViewCell {
         
     lazy var textLabel: UILabel = {
-          let textLabel = UILabel()
-          self.addSubview(textLabel)
-          return textLabel
+          let titletextLabel = UILabel()
+          return titletextLabel
       }()
+    
+    
     
     private func setTextConstrains() {
          textLabel.translatesAutoresizingMaskIntoConstraints = false
          [textLabel.centerXAnchor.constraint(equalTo: centerXAnchor), textLabel.centerYAnchor.constraint(equalTo: centerYAnchor), ].forEach{ $0.isActive = true }
      }
      
-    
-    
+//    lazy var actionButton: UIButton = {
+//        let actionSheetButton = UIButton()
+//        self.addSubview(actionSheetButton)
+//        return actionSheetButton
+//    }()
+//
+//
     
         lazy var TextViewDescription: UITextView = {
-              let textDescription = UITextView()
-              textDescription.text = "Description"
-            textDescription.textColor = .gray
-              textDescription.font = .italicSystemFont(ofSize: 16)
-              textDescription.isScrollEnabled = true
-              textDescription.isSelectable = false
-              textDescription.isEditable = false
+              let TextDescription = UITextView()
+              TextDescription.text = "Description"
+            TextDescription.textColor = .black
+              TextDescription.font = .italicSystemFont(ofSize: 16)
+              TextDescription.isScrollEnabled = true
+              TextDescription.isSelectable = false
+              TextDescription.isEditable = false
               
-              return textDescription
+              return TextDescription
           }()
     
     func setTextViewConstraint() {
-         addSubview(TextViewDescription)
          TextViewDescription.translatesAutoresizingMaskIntoConstraints = false
          
          TextViewDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
@@ -48,11 +53,14 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     
     
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect ) {
         super.init(frame: frame)
-        backgroundColor = .blue
-       setTextConstrains()
+        self.backgroundColor = .darkGray
+        addSubview(textLabel)
+        addSubview(TextViewDescription)
+        setTextConstrains()
         setTextViewConstraint()
+        self.translatesAutoresizingMaskIntoConstraints = false
        
     }
     
