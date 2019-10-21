@@ -25,7 +25,11 @@ class BestSellersVC: UIViewController {
     
     
     
-    private var pickerView = Picker()
+    private var pickerView = Picker() {
+        didSet {
+            BSCollectionView.reloadData()
+        }
+    }
     
     private var categories = [Hit]() {
         didSet {
@@ -34,11 +38,12 @@ class BestSellersVC: UIViewController {
         }
     }
     
-    var category = "hardcover-nonfiction" {
-              didSet {
-                  loadBestSellers()
-              }
-          }
+    var category = Picker.category {
+        didSet {
+            loadBestSellers()
+            BSCollectionView.reloadData()
+        }
+    }
     
        
     
@@ -89,7 +94,7 @@ class BestSellersVC: UIViewController {
      
     //MARK: Private Data Methods
     private func loadBestSellers(){
-        NYTAPIClient.shared.getBookInfo(category: self.category) { (result) in
+        NYTAPIClient.shared.getBookInfo(category: category) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
@@ -128,9 +133,18 @@ class BestSellersVC: UIViewController {
         view.backgroundColor = .white
         configureCollectionView()
         setUpPicker()
-        loadBestSellers()
         loadCategories()
+        loadBestSellers()
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        if let row = UserDefaultWrapper.manager.getCategoryRow(),let name = UserDefaultWrapper.manager.getCategoryName() {
+            pickerView.selectRow(row, inComponent: 0, animated: true)
+            category = name
+            
+        }
         
+         loadBestSellers()
     }
 
 }
