@@ -84,6 +84,8 @@ class FavoritesVC: UIViewController {
             cell.textLabel.text = favorite.bookDetails?[0].author
             cell.TextViewDescription.text = favorite.bookDetails?[0].bookDetailDescription
             cell.BestsellerImageView.image = UIImage(data: favorite.image)
+            cell.actionButton.tag = indexPath.row
+            cell.delegate = self
             return cell
         }
         
@@ -92,7 +94,49 @@ class FavoritesVC: UIViewController {
 extension FavoritesVC: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         return CGSize(width: FVCollectionView.frame.width, height: FVCollectionView.frame.height)
+         return CGSize(width: FVCollectionView.frame.width, height: 500)
     }
     
 }
+
+extension FavoritesVC: FavDelegate {
+func showActionSheet(tag: Int) {
+    
+let optionsMenu = UIAlertController.init(title: "Options", message: "Make Selection", preferredStyle: .actionSheet)
+
+let shareAction = UIAlertAction.init(title: "Share", style: .default) { (action) in
+    let image = UIImage(data: self.favs[tag].image)
+    let share = UIActivityViewController(activityItems: [image!], applicationActivities: [])
+    self.present(share, animated: true, completion: nil)
+}
+
+let deleteAction = UIAlertAction.init(title: "Delete", style: .destructive) { (action) in
+let pic = self.favs[tag]
+    print("deleting \(pic.bookDetails?[0].title ?? "")")
+do {
+    try FavPersistenceHelper.manager.delete(index: tag)
+    self.loadFavs()
+} catch {
+    return
+}
+}
+    
+let amazonAction = UIAlertAction.init(title: "See On Amazon", style: .default) { (action) in
+    let pic = self.favs[tag]
+    UIApplication.shared.open(URL(string: pic.amazonProductURL ?? "amazon.com")!, options: [:], completionHandler: nil)
+
+    
+}
+
+let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil)
+optionsMenu.addAction(amazonAction)
+optionsMenu.addAction(shareAction)
+optionsMenu.addAction(deleteAction)
+optionsMenu.addAction(cancelAction)
+present(optionsMenu,animated: true,completion: nil)
+
+
+}
+
+}
+
