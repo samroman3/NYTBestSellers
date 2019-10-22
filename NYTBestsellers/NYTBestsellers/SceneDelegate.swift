@@ -24,9 +24,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let settingsVC = SettingsViewController()
         let navVC = UINavigationController(rootViewController: bestSellerVC)
         let tabController = UITabBarController()
-        let bestTab = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-        let settingsTab = UITabBarItem(tabBarSystemItem: .more, tag: 2)
-        let favTab = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+        let bestTab = UITabBarItem(title: "Best Sellers", image: UIImage(named: "best-seller"), tag: 0)
+        let settingsTab = UITabBarItem(title: "Settings", image: UIImage(named: "settings"), tag: 2)
+            //UITabBarItem(tabBarSystemItem: .more, tag: 2)
+        let favTab = UITabBarItem(title: "Favorites", image: UIImage(named: "bookmark-ribbon"), tag: 1)
+            //UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
         navVC.tabBarItem = bestTab
         favVC.tabBarItem = favTab
         settingsVC.tabBarItem = settingsTab
