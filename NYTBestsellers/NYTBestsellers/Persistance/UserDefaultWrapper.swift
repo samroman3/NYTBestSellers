@@ -16,7 +16,7 @@ class UserDefaultWrapper {
     //MARK: Keys
     private let categoryRowKey = "category"
     private let categoryNameKey = "name"
-    
+    private let categoriesKey = "categories"
     
     //MARK: Sets
     func set(value: Int) {
@@ -25,6 +25,9 @@ class UserDefaultWrapper {
     }
     func set(name: String) {
         UserDefaults.standard.set(name, forKey: categoryNameKey)
+    }
+    func set(categories: [String]) {
+        UserDefaults.standard.set(categories, forKey: categoriesKey)
     }
     
     //MARK: Gets
@@ -37,6 +40,12 @@ class UserDefaultWrapper {
     func getCategoryName() -> String? {
         if let name = UserDefaults.standard.value(forKey: categoryNameKey) as? String {
             return name
+        }
+        return nil
+    }
+    func getCategories() -> [String]? {
+        if let categories = UserDefaults.standard.value(forKey: categoriesKey) as? [String] {
+            return categories
         }
         return nil
     }
