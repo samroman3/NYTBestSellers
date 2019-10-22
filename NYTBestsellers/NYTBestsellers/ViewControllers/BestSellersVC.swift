@@ -12,7 +12,6 @@ class BestSellersVC: UIViewController {
     
     
     //MARK: Private Data Variables
-    
     private var books = [BS]() {
               didSet {
                   DispatchQueue.main.async {
@@ -21,17 +20,13 @@ class BestSellersVC: UIViewController {
               }
           }
     
-   
-    
-    
-    
     private var pickerView = Picker() {
         didSet {
             BSCollectionView.reloadData()
         }
     }
     
-    private var categories = Picker.categories {
+    private var categories = [String]() {
         didSet {
             print(categories)
             pickerView.reloadAllComponents()
@@ -111,26 +106,16 @@ class BestSellersVC: UIViewController {
     }
 
     
-    private func loadCategories(){
-        NYTAPIClient.shared.getCategory { (result) in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print("unable to load category due to \(error)")
-                case .success(let data):
-                    self.categories = data.results!
-                    print("succesfully loaded categories")
-                }
-            }
-        }
-    }
+    
     private func loadPickerDefaults() {
         if let row = UserDefaultWrapper.manager.getCategoryRow(),let name = UserDefaultWrapper.manager.getCategoryName() {
             pickerView.selectRow(row, inComponent: 0, animated: true)
             category = name
         }
     }
-   
+    @objc func setPickerDefaults() {
+        loadPickerDefaults()
+    }
        
 
     
@@ -141,13 +126,19 @@ class BestSellersVC: UIViewController {
         view.backgroundColor = .white
         configureCollectionView()
         setUpPicker()
-        loadCategories()
+        setupCategories()
         loadBestSellers()
-
+        view.layoutIfNeeded()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         loadPickerDefaults()
          loadBestSellers()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadPickerDefaults()
     }
 
 }
@@ -227,12 +218,11 @@ extension BestSellersVC: UIPickerViewDataSource, UIPickerViewDelegate {
         return categories.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row].displayName
+        return categories[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-       //TODO: Create Array of all listnames in Category data
-        let name = categories[row].displayName.replacingOccurrences(of: " ", with: "-").lowercased()
+        let name = categories[row].replacingOccurrences(of: " ", with: "-").lowercased()
         category = name
         
     }
