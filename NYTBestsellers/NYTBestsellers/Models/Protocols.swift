@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+protocol FavDelegate: AnyObject {
+    func showActionSheet(tag: Int)
+    
+}

@@ -20,13 +20,13 @@ struct FavPersistenceHelper {
         return try persistenceHelper.getObjects()
     }
     
-    func editPhoto(element: Favorite, index: Int) throws {
-        return try persistenceHelper.editAtIndex(editedElement: element, index: index)
-    }
+//    func editPhoto(element: Favorite, index: Int) throws {
+//        return try persistenceHelper.editAtIndex(editedElement: element, index: index)
+//    }
     
     //TODO: find way to delete picture based on sender tag in collectionview cell
-    func delete(favArr: [Favorite], index: Int) throws {
-        return try persistenceHelper.deleteAtIndex(newArray: favArr, index: index)
+    func delete(index: Int) throws {
+        return try persistenceHelper.deleteAtIndex(index: index)
         
 }
     
