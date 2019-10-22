@@ -12,15 +12,16 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     
     lazy var textLabel: UILabel = {
         let titletextLabel = UILabel()
-        titletextLabel.backgroundColor = .white
+        titletextLabel.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         titletextLabel.font = UIFont(name:"Optima-BOld", size: 24)
+        titletextLabel.textColor = .white
         titletextLabel.textAlignment = .center
         return titletextLabel
     }()
     
     lazy var BestsellerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -35,7 +36,7 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     lazy var actionButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(.actions, for: .normal)
-        button.tintColor = .darkGray
+        button.tintColor = .systemIndigo
         button.addTarget(self, action: #selector(favMenuAction(_:)), for: .touchUpInside)
         return button
     }()
@@ -45,8 +46,8 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     lazy var TextViewDescription: UITextView = {
         let TextDescription = UITextView()
         TextDescription.text = "Description"
-        TextDescription.textColor = .black
-        TextDescription.backgroundColor = UIColor(white: 0.97, alpha: 1)
+        TextDescription.textColor = .white
+        TextDescription.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         TextDescription.font = .italicSystemFont(ofSize: 16)
         TextDescription.textAlignment = .center
         TextDescription.font = TextDescription.font?.withSize(21)
@@ -93,7 +94,7 @@ class FavoritesCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect ) {
         super.init(frame: frame)
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         addSubview(BestsellerImageView)
         addSubview(textLabel)
         addSubview(TextViewDescription)
