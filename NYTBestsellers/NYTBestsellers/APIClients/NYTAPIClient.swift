@@ -37,7 +37,7 @@ struct NYTAPIClient {
         }
     }
     
-    func getCategory(completionHandler: @escaping (Result<Categories, AppError>) -> ()) {
+    func getCategory(completionHandler: @escaping (Result<[String], AppError>) -> ()) {
         let urlStr = "https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=\(Secrets.nytimeskey)"
         
         guard let url = URL(string: urlStr) else {
@@ -52,7 +52,12 @@ struct NYTAPIClient {
                 
                 do {
                     let categories = try Categories.getCategoriesFromData (data: data)
-                    completionHandler(.success(categories!))
+                    if let arrOfString = categories?.results {
+                        let strings = arrOfString.map({$0.displayName})
+                        UserDefaultWrapper.manager.set(categories: strings)
+                        completionHandler(.success(strings))
+                    }
+                    
                 }
                 catch {
                     completionHandler(.failure(.other(rawError: error)))

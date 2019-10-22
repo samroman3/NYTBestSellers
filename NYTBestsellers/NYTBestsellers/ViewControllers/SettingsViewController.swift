@@ -11,7 +11,7 @@ import UIKit
 class SettingsViewController: UIViewController {
     //MARK: - UIObjects
     var pickerView = Picker()
-    var categories = [Hit]() {
+    var categories = [String]() {
         didSet {
             self.pickerView.reloadAllComponents()
         }
@@ -68,11 +68,11 @@ extension SettingsViewController: UIPickerViewDataSource,UIPickerViewDelegate {
         return Picker.categories.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Picker.categories[row].displayName
+        return Picker.categories[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         UserDefaultWrapper.manager.set(value: row)
-        let name = categories[row].displayName.replacingOccurrences(of: " ", with: "-").lowercased()
+        let name = categories[row].replacingOccurrences(of: " ", with: "-").lowercased()
         UserDefaultWrapper.manager.set(name: name)
         
     }
