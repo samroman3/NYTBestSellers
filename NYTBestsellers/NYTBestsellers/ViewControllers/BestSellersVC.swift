@@ -48,7 +48,7 @@ class BestSellersVC: UIViewController {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-    cv.backgroundColor = .white
+    cv.backgroundColor = .darkGray
     cv.delegate = self
     cv.dataSource = self 
     cv.register(BsCollectionViewCell.self, forCellWithReuseIdentifier: "bsCell")
@@ -121,20 +121,25 @@ class BestSellersVC: UIViewController {
     
        
     //MARK: Lifecycle Methods
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         configureCollectionView()
         setUpPicker()
         setupCategories()
         loadBestSellers()
         view.layoutIfNeeded()
+        setNeedsStatusBarAppearanceUpdate()
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadPickerDefaults()
          loadBestSellers()
+        setNeedsStatusBarAppearanceUpdate()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -217,14 +222,15 @@ extension BestSellersVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return categories.count
     }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row]
-    }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let name = categories[row].replacingOccurrences(of: " ", with: "-").lowercased()
         category = name
         
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: String(categories[row]), attributes: [NSAttributedString.Key.foregroundColor: UIColor.white ])
     }
     
 }

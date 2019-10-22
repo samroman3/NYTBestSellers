@@ -27,7 +27,7 @@ class FavoritesVC: UIViewController {
         layout.scrollDirection = .vertical
         }
     
-    fvc.backgroundColor = .black
+    fvc.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
     fvc.delegate = self
     fvc.dataSource = self
     fvc.register(FavoritesCollectionViewCell.self, forCellWithReuseIdentifier: "favCell")
@@ -44,14 +44,23 @@ class FavoritesVC: UIViewController {
         view.layoutIfNeeded()
     }
     
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
             override func viewDidLoad() {
                 super.viewDidLoad()
-                view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                view.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
                 addSubView()
                 configureCollectionView()
                 loadFavs()
+                setNeedsStatusBarAppearanceUpdate()
             }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loadFavs()
+        setNeedsStatusBarAppearanceUpdate()
+    }
     
     
         func addSubView() {
