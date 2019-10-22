@@ -9,7 +9,7 @@
 import UIKit
 
 class Picker: UIPickerView {
-    static var categories = [Hit]()
+    static var categories = [String]()
     static var category = "Hardcover-nonfiction"
 
     override init(frame: CGRect) {
@@ -18,7 +18,8 @@ class Picker: UIPickerView {
         layer.borderWidth = 2
         layer.borderColor = UIColor.purple.cgColor
         layer.cornerRadius = 30
-        loadCatagories()
+        setCategoriesDefaults()
+        print(Picker.categories)
     }
     
     required init?(coder: NSCoder) {
@@ -31,13 +32,19 @@ class Picker: UIPickerView {
             case .failure(let error):
                 print(error)
             case .success(let categoriesFromJSON):
-                if let hits = categoriesFromJSON.results {
-                    Picker.categories = hits
+                DispatchQueue.main.async {
+                    Picker.categories = categoriesFromJSON
                 }
             }
         }
     }
-    
+    func setCategoriesDefaults() {
+        if let categories = UserDefaultWrapper.manager.getCategories() {
+            Picker.categories = categories
+        } else {
+            loadCatagories()
+        }
+    }
 }
 
 
