@@ -16,8 +16,9 @@ class Picker: UIPickerView {
         super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 150))
         translatesAutoresizingMaskIntoConstraints = false
         layer.borderWidth = 2
-        layer.borderColor = UIColor.purple.cgColor
+        layer.borderColor = UIColor.blue.cgColor
         layer.cornerRadius = 30
+        backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         setCategoriesDefaults()
         print(Picker.categories)
     }
