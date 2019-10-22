@@ -45,6 +45,22 @@ class DetailVC: UIViewController {
         return summary
     }()
     
+    lazy var amazonButton: UIButton = {
+        let amazon = UIButton()
+        amazon.setImage(UIImage(named: "amazon-icon"), for: .normal)
+        amazon.isHidden = false
+        amazon.contentMode = .scaleAspectFit
+        amazon.backgroundColor = .white
+        amazon.isUserInteractionEnabled = true
+        amazon.isEnabled = true
+        amazon.addTarget(self, action: #selector(didTapAmazon(sender:)), for: UIControl.Event.touchUpInside)
+        return amazon
+    }()
+    
+    @objc func didTapAmazon(sender: UIButton) {
+        UIApplication.shared.open(URL(string:BS?.amazonProductURL ?? "amazon.com")!, options: [:], completionHandler: nil)
+    }
+    
     lazy var favButton: UIBarButtonItem = {
         let fav = UIBarButtonItem(barButtonSystemItem: .save , target: self, action: #selector(favButtonPressed(sender:)))
         return fav
@@ -65,15 +81,18 @@ class DetailVC: UIViewController {
     
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         view.backgroundColor = .white
+        configureAmazonButtonConstraints()
         configureBookImageViewConstraints()
         configureAuthorLabelConstraints()
         configureBookTextViewConstraints()
         self.navigationItem.rightBarButtonItem = favButton
         super.viewDidLoad()
+    }
 
        
-    }
+    
     
     private func loadData(){
         authorLabel.text = BS?.bookDetails?[0].author
@@ -107,7 +126,7 @@ class DetailVC: UIViewController {
     private func configureBookImageViewConstraints() {
         view.addSubview(bookImageView)
         bookImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([bookImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10), bookImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor), bookImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor), bookImageView.heightAnchor.constraint(equalToConstant: 350)])
+        NSLayoutConstraint.activate([bookImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10), bookImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 80), bookImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80), bookImageView.heightAnchor.constraint(equalToConstant: 350)])
         }
 
     private func configureAuthorLabelConstraints() {
@@ -132,6 +151,13 @@ class DetailVC: UIViewController {
         
     }
     
+    private func configureAmazonButtonConstraints() {
+        view.addSubview(amazonButton)
+        amazonButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([amazonButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            amazonButton.widthAnchor.constraint(equalToConstant: 80),
+            amazonButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor), amazonButton.heightAnchor.constraint(equalToConstant: 80)])
+    }
     
     
 }
