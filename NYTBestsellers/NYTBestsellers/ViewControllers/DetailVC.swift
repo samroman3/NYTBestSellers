@@ -90,6 +90,10 @@ class DetailVC: UIViewController {
         self.navigationItem.rightBarButtonItem = favButton
         super.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
 
        
     

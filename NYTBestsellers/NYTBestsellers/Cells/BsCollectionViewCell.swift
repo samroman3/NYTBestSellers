@@ -22,7 +22,7 @@ class BsCollectionViewCell: UICollectionViewCell {
             let weeksLabel = UILabel()
             weeksLabel.text = "placeHolder"
             weeksLabel.textAlignment = .center
-            weeksLabel.textColor = .black
+            weeksLabel.textColor = .white
             weeksLabel.font = .boldSystemFont(ofSize: 17)
             return weeksLabel
         }()
@@ -30,7 +30,9 @@ class BsCollectionViewCell: UICollectionViewCell {
         lazy var TextViewDescription: UITextView = {
             let textDescription = UITextView()
             textDescription.text = "Description"
-            textDescription.textColor = .black
+            textDescription.textColor = .white
+            textDescription.textAlignment = .center
+            textDescription.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
             textDescription.font = .italicSystemFont(ofSize: 14) 
             textDescription.isScrollEnabled = true
             textDescription.isSelectable = false
@@ -42,7 +44,7 @@ class BsCollectionViewCell: UICollectionViewCell {
         override init(frame: CGRect) {
             super.init(frame: frame)
      
-            backgroundColor = .init(white: 0.98, alpha: 1)
+            backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
             addSubview(NumberOfWeeksLabel)
             addSubview(TextViewDescription)
             setImageConstraints()

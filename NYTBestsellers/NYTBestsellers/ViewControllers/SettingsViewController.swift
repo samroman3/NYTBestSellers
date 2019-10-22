@@ -17,11 +17,20 @@ class SettingsViewController: UIViewController {
         }
     }
     
-
+    lazy var selectCategoryLabel: UILabel = {
+        var label = UILabel()
+        label.text = "Select Category:"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont(name:"Optima-BOld", size: 24)
+        return label
+    }()
+    
     //MARK: - SetupFunctions
     private func setSettingsUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         setPickerConstraints()
+        setCategoryLabelConstraints()
     }
     func setupCategories() {
         categories = Picker.categories
@@ -34,6 +43,17 @@ class SettingsViewController: UIViewController {
             pickerView.heightAnchor.constraint(equalToConstant: pickerView.frame.height)])
         view.layoutIfNeeded()
     }
+    
+    private func setCategoryLabelConstraints(){
+        view.addSubview(selectCategoryLabel)
+        NSLayoutConstraint.activate([
+            selectCategoryLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            selectCategoryLabel.widthAnchor.constraint(equalToConstant: view.frame.width),
+            selectCategoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            selectCategoryLabel.heightAnchor.constraint(equalToConstant: 40)])
+        view.layoutIfNeeded()
+    }
+    
     private func setPickerDelegates() {
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -45,15 +65,21 @@ class SettingsViewController: UIViewController {
     }
     
     //MARK: - LifeCycle
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setSettingsUI()
         setPickerDelegates()
         setupCategories()
         loadPickerDefaults()
+        setNeedsStatusBarAppearanceUpdate()
     }
     override func viewWillAppear(_ animated: Bool) {
         loadPickerDefaults()
+         view.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
+        setNeedsStatusBarAppearanceUpdate()
     }
 
 }
@@ -67,9 +93,11 @@ extension SettingsViewController: UIPickerViewDataSource,UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return Picker.categories.count
     }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Picker.categories[row]
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: String(categories[row]), attributes: [NSAttributedString.Key.foregroundColor: UIColor.white ])
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         UserDefaultWrapper.manager.set(value: row)
         let name = categories[row].replacingOccurrences(of: " ", with: "-").lowercased()
